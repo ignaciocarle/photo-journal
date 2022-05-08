@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewShotFormComponent } from './components/new-shot-form/new-shot-form.component';
+import { TestingService } from './services/testing.service';
+import { StorageService } from './services/storage.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,10 @@ import { NewShotFormComponent } from './components/new-shot-form/new-shot-form.c
     FormsModule,
     NgbModule,
   ],
-  providers: [],
+  providers: [
+    TestingService,
+    StorageService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

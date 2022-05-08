@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StorageService } from './services/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'photo-journal';
+
+  constructor(private storage: StorageService) { }
+
+  public clear() {
+    this.storage.clearCurrentReel()
+  }
+
+  public loadTestData() {
+    this.storage.loadTestingData()
+  }
+
+
 }
