@@ -1,0 +1,133 @@
+<form class="d-flex flex-column" [formGroup]="newShotForm">
+  <div class="mb-3">
+    <p>Mode</p>
+    <div class="d-flex btn-group" role="group">
+      <input
+        type="radio"
+        formControlName="mode"
+        [value]="'m'"
+        class="btn-check"
+        id="m"
+        autocomplete="off"
+      />
+      <label class="btn btn-outline-primary" for="m">M</label>
+
+      <input
+        type="radio"
+        formControlName="mode"
+        [value]="'p'"
+        class="btn-check"
+        id="p"
+        autocomplete="off"
+      />
+      <label class="btn btn-outline-primary" for="p">P</label>
+
+      <input
+        type="radio"
+        formControlName="mode"
+        [value]="'s'"
+        class="btn-check"
+        id="s"
+        autocomplete="off"
+      />
+      <label class="btn btn-outline-primary" for="s">S</label>
+
+      <input
+        type="radio"
+        formControlName="mode"
+        [value]="'a'"
+        class="btn-check"
+        id="a"
+        autocomplete="off"
+      />
+      <label class="btn btn-outline-primary" for="a">A</label>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="aperture" class="form-label">Apertura</label>
+    <input
+      type="text"
+      formControlName="aperture"
+      class="form-control"
+      id="aperture"
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="speed" class="form-label">Velocidad</label>
+    <input
+      type="text"
+      formControlName="speed"
+      class="form-control"
+      id="speed"
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="exposure" class="form-label">Exposición</label>
+    <input
+      type="text"
+      formControlName="exposure"
+      class="form-control"
+      id="exposure"
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="flash" class="form-label">Flash</label>
+    <input
+      type="text"
+      formControlName="flash"
+      class="form-control"
+      id="flash"
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="comments" class="form-label">Comentarios</label>
+    <textarea
+      rows="3"
+      formControlName="comments"
+      class="form-control"
+      id="comments"
+      autocomplete="off"
+    ></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="accessories" class="form-label">Accesorios</label>
+    <textarea
+      rows="3"
+      formControlName="accessories"
+      class="form-control"
+      id="accessories"
+      autocomplete="off"
+    ></textarea>
+  </div>
+  <div class="d-flex">
+    <button
+      class="btn btn-primary mx-2 flex-grow-1"
+      (click)="newShotForm.reset()"
+    >
+      Guardar
+    </button>
+    <button
+      class="btn btn-light mx-2 flex-grow-1"
+      (click)="newShotForm.reset()"
+    >
+      Reset
+    </button>
+  </div>
+</form>
+<!--<p>{{ newShotForm.controls["mode"].value }}</p>
+<p>{{ newShotForm.controls["aperture"].value }}</p>
+<p>{{ newShotForm.controls["speed"].value }}</p>
+<p>{{ newShotForm.controls["exposure"].value }}</p>
+<p>{{ newShotForm.controls["flash"].value }}</p>
+<p>{{ newShotForm.controls["comments"].value }}</p>
+<p>{{ newShotForm.controls["accessories"].value }}</p>-->
