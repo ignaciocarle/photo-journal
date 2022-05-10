@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Film, Shot } from '../interfaces/storage';
+import { AppDb, Film, Shot } from '../interfaces/storage';
 import { TestingService } from './testing.service';
 
 @Injectable({
@@ -7,18 +7,18 @@ import { TestingService } from './testing.service';
 })
 export class StorageService {
 
-  private dbName: string = "filmsDB"
-  private filmsDB: Film[] = []
-  private currentFilm: number = 0
+  private _dbName: string = "appDb"
+  private _appDb: AppDb = this.getDataFromLS(this._dbName)
+  private _currentFilm: number = 0
 
 
   constructor(private test: TestingService) {
-    this.getFilmsDB()
+    this.readDB(this._dbName)
   }
 
 
   //LOCAL STORAGE HANDLING
-  private setDataInLS(key: string, data: any) {
+  private setDataInLS(key: string, data: any): void {
     try {
       localStorage.setItem(key, JSON.stringify(data))
     } catch (e) {
@@ -26,7 +26,7 @@ export class StorageService {
     }
   }
 
-  public getDataFromLS(key: string) {
+  private getDataFromLS(key: string): any {
     try {
       return JSON.parse(localStorage.getItem(key) ?? "")
     } catch (e) {
@@ -34,49 +34,55 @@ export class StorageService {
     }
   }
 
-  private getFilmsDB(): void {
-    this.filmsDB = this.getDataFromLS(this.dbName)
+  //DATABASE HANDLING
+  private readDB(db: string): void {
+    this._appDb = this.getDataFromLS(db)
   }
 
-  private updateFilmsDB(): void {
-    this.setDataInLS(this.dbName, this.filmsDB)
+  private updateDB(): void {
+    this.setDataInLS(this._dbName, this._appDb)
   }
 
-  //SERVICE DATA MANIPULATION  
-  private addShotToReel(shot: Shot, filmID: number): Film[] {
-    const db = this.filmsDB
+  //GET AND SET
+  public get appDb(): AppDb {
+    return this._appDb
+  }
+
+  //DATA MANIPULATION
+  private addShotToReel(shot: Shot, filmID = this._currentFilm): void {
+    const film = this._appDb.films[filmID]
     const fullShot: Shot = {
-      id: db[filmID].reel.length,
+      id: film.reel.length,
       ...shot
     }
-    db[filmID].reel = [...db[filmID].reel, fullShot]
-    db[filmID].shotsFired = db[filmID].reel.length
-    return db
+    film.reel = [...film.reel, fullShot]
+    film.shotsFired = film.reel.length
   }
 
 
   //USER ACTIONS
-  public saveNewShot(shot: Shot, filmID = this.currentFilm): void {
-    this.filmsDB = this.getDataFromLS(this.dbName)
-    this.filmsDB = this.addShotToReel(shot, filmID)
-    this.updateFilmsDB()
+  public saveNewShot(shot: Shot, filmID = this._currentFilm): void {
+    this.readDB(this._dbName)
+    this.addShotToReel(shot, filmID)
+    this.updateDB()
     console.log("New Reel Updated");
-    console.log(this.filmsDB[filmID].reel);
+    console.log(this._appDb.films[filmID].reel);
   }
 
-  public clearCurrentReel() {
-    this.filmsDB[this.currentFilm].reel = []
-    this.filmsDB[this.currentFilm].shotsFired = 0
-    this.updateFilmsDB()
+  public clearReel(filmID = this._currentFilm): void {
+    const film = this._appDb.films[filmID]
+    film.reel = []
+    film.shotsFired = 0
+    this.updateDB()
   }
 
   //TESTING
 
-  public loadTestingData() {
-    this.setDataInLS(this.dbName, this.test.testDB)
-    this.getFilmsDB()
+  public loadTestingData(): void {
+    this.updateDB()
+    this.setDataInLS(this._dbName, this.test.testDB)
     console.log("TESTING DATA LOADED");
-    console.log(this.filmsDB);
+    console.log(this._appDb);
 
   }
 }

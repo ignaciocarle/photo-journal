@@ -11,8 +11,8 @@ export class AppComponent {
 
   constructor(private storage: StorageService) { }
 
-  public clear() {
-    this.storage.clearCurrentReel()
+  public clearReel() {
+    this.storage.clearReel()
   }
 
   public loadTestData() {

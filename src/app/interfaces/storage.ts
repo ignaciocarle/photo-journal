@@ -15,3 +15,12 @@ export interface Shot {
   comments: string,
   accessories: string,
 }
+
+export interface AppDb {
+  user: User,
+  films: Film[],
+}
+
+export interface User {
+  username: string,
+}

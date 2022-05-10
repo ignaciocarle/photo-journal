@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
+import { AppDb } from '../interfaces/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TestingService {
 
-  public testDB =
-    [{
+  public testDB: AppDb = {
+    user: { username: "tester" },
+    films: [{
       iso: "200",
       shotsCap: 36,
       shotsFired: 3,
@@ -40,8 +42,8 @@ export class TestingService {
           accessories: ""
         },
       ]
-    }
-    ]
+    },]
+  }
 
   constructor() {
 

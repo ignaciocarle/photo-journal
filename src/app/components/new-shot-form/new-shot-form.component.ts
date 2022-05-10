@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Shot } from 'src/app/interfaces/storage';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class NewShotFormComponent implements OnInit {
 
-  private blankShotForm = {
+  private _blankShotForm = {
     mode: "",
     aperture: "",
     speed: "",
@@ -19,7 +20,7 @@ export class NewShotFormComponent implements OnInit {
     accessories: ""
   }
 
-  public newShotForm = this.fb.group(this.blankShotForm)
+  public newShotForm = this.fb.group(this._blankShotForm)
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +30,7 @@ export class NewShotFormComponent implements OnInit {
   }
 
   public submitForm() {
-    const form = this.newShotForm.value
+    const form: Shot = this.newShotForm.value
     console.log(`Sending shot to storage:`);
     console.log(form);
 
@@ -38,6 +39,6 @@ export class NewShotFormComponent implements OnInit {
   }
 
   public clearForm() {
-    this.newShotForm.setValue(this.blankShotForm)
+    this.newShotForm.setValue(this._blankShotForm)
   }
 }
