@@ -9,15 +9,6 @@ import { StorageService } from './services/storage.service';
 export class AppComponent {
   title = 'photo-journal';
 
-  constructor(private storage: StorageService) { }
-
-  public clearReel() {
-    this.storage.clearReel()
-  }
-
-  public loadTestData() {
-    this.storage.loadTestingData()
-  }
-
+  constructor() { }
 
 }

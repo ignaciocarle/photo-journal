@@ -8,16 +8,16 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private storage: StorageService) { }
+  constructor(private _storage: StorageService) { }
 
   ngOnInit(): void {
   }
 
   public clearReel() {
-    this.storage.clearReel()
+    this._storage.clearReel()
   }
 
   public loadTestData() {
-    this.storage.loadTestingData()
+    this._storage.loadTestingData()
   }
 }

@@ -82,7 +82,7 @@ export class StorageService {
   }
 
   public clearReel(filmID = this._currentFilm): void {
-    const film = this.appDb.films[filmID] //esto me esta borrando la data de testDB
+    const film = this.appDb.films[filmID]
     film.reel = []
     film.shotsFired = 0
     console.log("REEL DATA CLEARED");
@@ -92,9 +92,9 @@ export class StorageService {
   //TESTING
 
   public loadTestingData(): void {
-    this.appDb.films[0] = this._test.testDB.films[0]//buscar otra forma de traer la info
+    this.setDataInLS(this._dbName, this._test.testDB)
+    this.readDB(this._dbName)
     console.log(this._test.testDB.films[0]);
     console.log("TESTING DATA LOADED");
-    this.updateDB()
   }
 }
