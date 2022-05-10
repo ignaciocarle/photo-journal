@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AppDb, Film, Shot } from '../interfaces/storage';
+import { AppDb, Shot } from '../interfaces/storage';
 import { TestingService } from './testing.service';
 
 @Injectable({
@@ -35,17 +35,20 @@ export class StorageService {
   }
 
   //DATABASE HANDLING
-  private readDB(db: string): void {
+  private readDB(db: string): void {// database >>  local DB variable
     this._appDb = this.getDataFromLS(db)
   }
 
-  private updateDB(): void {
+  private updateDB(): void {//local DB variable >> database
     this.setDataInLS(this._dbName, this._appDb)
   }
 
   //GET AND SET
   public get appDb(): AppDb {
     return this._appDb
+  }
+  public get currentFilm(): number {
+    return this._currentFilm
   }
 
   //DATA MANIPULATION
@@ -73,16 +76,15 @@ export class StorageService {
     const film = this._appDb.films[filmID]
     film.reel = []
     film.shotsFired = 0
+    console.log("REEL DATA CLEARED");
     this.updateDB()
   }
 
   //TESTING
 
   public loadTestingData(): void {
-    this.updateDB()
     this.setDataInLS(this._dbName, this.test.testDB)
+    this.readDB(this._dbName)
     console.log("TESTING DATA LOADED");
-    console.log(this._appDb);
-
   }
 }
