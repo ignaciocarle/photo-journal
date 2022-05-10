@@ -1,1 +1,25 @@
 <button class="btn btn-primary mx-2" (click)="testbutton()">TESTING</button>
+<table>
+  <thead>
+    <th scope="col">ID</th>
+    <th scope="col">Modo</th>
+    <th scope="col">Apertura</th>
+    <th scope="col">Velocidad</th>
+    <th scope="col">Flash</th>
+    <th scope="col">Exposición</th>
+    <th scope="col">Comentarios</th>
+    <th scope="col">Accesorios</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let shot of this.reel">
+      <td>{{ shot.id }}</td>
+      <td>{{ shot.mode }}</td>
+      <td>{{ shot.aperture }}</td>
+      <td>{{ shot.speed }}</td>
+      <td>{{ shot.flash }}</td>
+      <td>{{ shot.exposure }}</td>
+      <td>{{ shot.comments }}</td>
+      <td>{{ shot.accessories }}</td>
+    </tr>
+  </tbody>
+</table>

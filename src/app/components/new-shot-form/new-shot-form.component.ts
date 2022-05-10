@@ -20,21 +20,19 @@ export class NewShotFormComponent implements OnInit {
     accessories: ""
   }
 
-  public newShotForm = this.fb.group(this._blankShotForm)
+  public newShotForm = this._fb.group(this._blankShotForm)
 
   constructor(
-    private fb: FormBuilder,
-    private storage: StorageService) { }
+    private _fb: FormBuilder,
+    private _storage: StorageService) { }
 
   ngOnInit(): void {
   }
 
   public submitForm() {
     const form: Shot = this.newShotForm.value
-    console.log(`Sending shot to storage:`);
-    console.log(form);
-
-    this.storage.saveNewShot(form)
+    //console.log(form);
+    this._storage.saveNewShot(form)
     this.clearForm()
   }
 

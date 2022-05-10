@@ -6,7 +6,7 @@ import { AppDb } from '../interfaces/storage';
 })
 export class TestingService {
 
-  public testDB: AppDb = {
+  private _testDB: AppDb = {
     user: { username: "tester" },
     films: [{
       iso: "200",
@@ -45,7 +45,10 @@ export class TestingService {
     },]
   }
 
-  constructor() {
-
+  public get testDB(): AppDb {
+    return this._testDB
   }
+
+  constructor() { }
+
 }

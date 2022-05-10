@@ -12,7 +12,7 @@ export class StorageService {
   private _currentFilm: number = 0
 
 
-  constructor(private test: TestingService) {
+  constructor(private _test: TestingService) {
     this.readDB(this._dbName)
   }
 
@@ -36,24 +36,33 @@ export class StorageService {
 
   //DATABASE HANDLING
   private readDB(db: string): void {// database >>  local DB variable
-    this._appDb = this.getDataFromLS(db)
+    this.appDb = this.getDataFromLS(db)
   }
 
   private updateDB(): void {//local DB variable >> database
-    this.setDataInLS(this._dbName, this._appDb)
+    this.setDataInLS(this._dbName, this.appDb)
   }
 
   //GET AND SET
   public get appDb(): AppDb {
     return this._appDb
   }
+
+  public set appDb(db: AppDb) {
+    this._appDb = db
+  }
+
   public get currentFilm(): number {
     return this._currentFilm
   }
 
+  public set currentFilm(val: number) {
+    this._currentFilm = val
+  }
+
   //DATA MANIPULATION
   private addShotToReel(shot: Shot, filmID = this._currentFilm): void {
-    const film = this._appDb.films[filmID]
+    const film = this.appDb.films[filmID]
     const fullShot: Shot = {
       id: film.reel.length,
       ...shot
@@ -68,12 +77,12 @@ export class StorageService {
     this.readDB(this._dbName)
     this.addShotToReel(shot, filmID)
     this.updateDB()
-    console.log("New Reel Updated");
-    console.log(this._appDb.films[filmID].reel);
+    console.log("NEW SHOT ADDED");
+    console.log(this.appDb.films[filmID].reel);
   }
 
   public clearReel(filmID = this._currentFilm): void {
-    const film = this._appDb.films[filmID]
+    const film = this.appDb.films[filmID] //esto me esta borrando la data de testDB
     film.reel = []
     film.shotsFired = 0
     console.log("REEL DATA CLEARED");
@@ -83,8 +92,9 @@ export class StorageService {
   //TESTING
 
   public loadTestingData(): void {
-    this.setDataInLS(this._dbName, this.test.testDB)
-    this.readDB(this._dbName)
+    this.appDb.films[0] = this._test.testDB.films[0]//buscar otra forma de traer la info
+    console.log(this._test.testDB.films[0]);
     console.log("TESTING DATA LOADED");
+    this.updateDB()
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Shot } from 'src/app/interfaces/storage';
+import { AppDb, Shot } from 'src/app/interfaces/storage';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -9,10 +9,9 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class ReelViewComponent implements OnInit {
 
-  private _currentFilm: number = this.storage.currentFilm
-  private _film = this.storage.appDb.films[this._currentFilm]
+  private _currentFilm: number = this._storage.currentFilm
 
-  constructor(private storage: StorageService) { }
+  constructor(private _storage: StorageService) { }
 
   ngOnInit(): void {
   }
@@ -20,11 +19,12 @@ export class ReelViewComponent implements OnInit {
   ngOnChanges(): void {
   }
 
+  public get reel(): Shot[] {
+    return this._storage.appDb.films[this._currentFilm].reel
+  }
+
   public testbutton() {
-    console.log("log desde variable _film");
-    console.log(this._film.reel);
-    console.log("log desde variable en servicio");
-    console.log(this.storage.appDb.films[this._currentFilm].reel);
+
   }
 
 }
