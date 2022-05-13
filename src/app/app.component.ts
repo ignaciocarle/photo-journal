@@ -7,7 +7,7 @@ import { StorageService } from './services/storage.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'photo-journal';
+  title = 'reeled';
 
   constructor() { }
 
